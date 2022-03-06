@@ -20,6 +20,7 @@ class InferenceModel:
 
     def __init__(self, path_to_model):
         self.transform = Transform().val_transform
+        self.transform_tensor = Transform().val_transform_tensor
         self.model = NIMA(pretrained_base_model=False)
         state_dict = torch.load(path_to_model, map_location=lambda storage, loc: storage)
         self.model.load_state_dict(state_dict)
@@ -47,8 +48,8 @@ class InferenceModel:
         return format_output(mean_score, std_score, prob)
 
     def predict_tensor(self, image):
-        image = self.transform(image)
-        print(image.size())
+        image = self.transform_tensor(image)
+        # print(image.size())
         image = image.to(device)
         prob = self.model(image).data
         return prob

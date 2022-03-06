@@ -26,6 +26,11 @@ class Transform:
             transforms.ToTensor(),
             normalize])
 
+        self._val_transform_tensor = transforms.Compose([
+            transforms.Resize((224, 224)),
+            normalize])
+
+
     @property
     def train_transform(self):
         return self._train_transform
@@ -33,6 +38,10 @@ class Transform:
     @property
     def val_transform(self):
         return self._val_transform
+
+    @property
+    def val_transform_tensor(self):
+        return self._val_transform_tensor
 
 
 def get_mean_score(score):
