@@ -45,3 +45,10 @@ class InferenceModel:
         std_score = get_std_score(prob)
 
         return format_output(mean_score, std_score, prob)
+
+    def predict_tensor(self, image):
+        image = self.transform(image)
+        print(image.size())
+        image = image.to(device)
+        prob = self.model(image).data
+        return prob
